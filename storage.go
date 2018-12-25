@@ -1,4 +1,4 @@
-package session
+package sessions
 
 import (
 	"database/sql"
@@ -20,7 +20,7 @@ func (s *Storage) Connect() error {
 
 	s.base = database
 
-	_, err = Base.Exec("CREATE TABLE IF NOT EXISTS sessions (sessionid UNSIGNED BIG INTEGER PRIMARY KEY, userid INTEGER, createdat varchar(255), deadline DATETIME);")
+	_, err = s.base.Exec("CREATE TABLE IF NOT EXISTS sessions (sessionid UNSIGNED BIG INTEGER PRIMARY KEY, userid INTEGER, createdat varchar(255), deadline DATETIME);")
 
 	if err != nil {
 		return err
