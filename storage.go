@@ -1,3 +1,6 @@
+// Copyright (c) 2018. Flying Gopher Authors
+// license that can be found in the LICENSE file.
+
 package sessions
 
 import (
@@ -13,6 +16,14 @@ type Storage struct {
 
 func (s *Storage) Connect() error {
 	database, err := sql.Open("sqlite3", s.filepath)
+
+	if s.filepath != ":memory:" {
+		err = CreateFileIfnExist(s.filepath)
+
+		if err != nil {
+			return err
+		}
+	}
 
 	if err != nil {
 		return err
